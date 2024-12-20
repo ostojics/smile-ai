@@ -9,3 +9,10 @@
 .result__text {
   font-size: 1.2rem;
 }
+
+@media screen and (max-width: 768px) {
+  .result {
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+}

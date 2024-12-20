@@ -1,4 +1,5 @@
 import { createContext, useState } from "react";
+import { storageKeys } from "../constants/storageKeys";
 
 const initialPattern = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -22,12 +23,24 @@ export const PatternContext = createContext<PatternContextType>({
   resetSmilePattern: () => {},
 });
 
+const getInitialTestPattern = () => {
+  const storedPattern = localStorage.getItem(storageKeys.testPattern);
+  if (!storedPattern) return initialPattern;
+
+  return JSON.parse(storedPattern);
+};
+
 export const PatternProvider = ({ children }: PatternContextProps) => {
   const [smilePattern, setSmilePattern] = useState(initialPattern);
-  const [testPattern, setTestPattern] = useState(initialPattern);
+  const [testPattern, setTestPattern] = useState(getInitialTestPattern);
 
   const resetSmilePattern = () => {
     setSmilePattern(initialPattern);
+  };
+
+  const enhanceSetTestPattern = (pattern: number[]) => {
+    setTestPattern(pattern);
+    localStorage.setItem(storageKeys.testPattern, JSON.stringify(pattern));
   };
 
   return (
@@ -36,7 +49,7 @@ export const PatternProvider = ({ children }: PatternContextProps) => {
         smilePattern,
         setSmilePattern,
         testPattern,
-        setTestPattern,
+        setTestPattern: enhanceSetTestPattern,
         resetSmilePattern,
       }}
     >

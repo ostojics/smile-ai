@@ -5,15 +5,14 @@ import Tester from "./components/Tester/Tester";
 function App() {
   return (
     <section>
-      <h1>Smile AI test</h1>
+      <h1>Smile AI</h1>
       <p>
-        Goal: Adjust the testing pattern so it can detect a smiling pattern
-        correctly
+        Goal: Adjust the testing pattern so the model can detect a smiling
+        pattern correctly
       </p>
       <p>
-        <span>-1 = Not smiling</span>
-        <br />
-        <span>1 = Smiling</span>
+        1 = Smiling
+        <br />0 & -1 = Not smiling
       </p>
       <Tester />
       <Result />
